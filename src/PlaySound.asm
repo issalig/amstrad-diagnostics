@@ -2,11 +2,11 @@
 	ld bc,#F407 ;;<< register
 	out (c),c
 	ld bc,#F6c0 ;;<<<<<< select register
-	out (c),c 
+	out (c),c
 	ld bc,#F600
 	out (c),c ;; << back to inactive
 
-	ld bc,#F400 + %10111101 ;; << data
+	ld bc,#F400 + %10111000 + SOUND_CHANNEL ;; << data
 	out (c),c
 	ld bc,#F680 ;; << write data to register
 	out (c),c
@@ -17,7 +17,7 @@
 	ld bc,#F402 ;;<< register
 	out (c),c
 	ld bc,#F6c0 ;;<<<<<< select register
-	out (c),c 
+	out (c),c
 	ld bc,#F600
 	out (c),c ;; << back to inactive
 
@@ -31,7 +31,7 @@
 	ld bc,#F403 ;;<< register
 	out (c),c
 	ld bc,#F6c0 ;;<<<<<< select register
-	out (c),c 
+	out (c),c
 	ld bc,#F600
 	out (c),c ;; << back to inactive
 
@@ -46,7 +46,7 @@
 	ld bc,#F409 ;;<< register
 	out (c),c
 	ld bc,#F6c0 ;;<<<<<< select register
-	out (c),c 
+	out (c),c
 	ld bc,#F600
 	out (c),c ;; << back to inactive
 
@@ -68,7 +68,7 @@
 	ld bc,#F407 ;;<< register
 	out (c),c
 	ld bc,#F6c0 ;;<<<<<< select register
-	out (c),c 
+	out (c),c
 	ld bc,#F600
 	out (c),c ;; << back to inactive
 
@@ -85,4 +85,3 @@
 	ld a,b
 	or c
 	jr nz,2B
-

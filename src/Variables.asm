@@ -20,10 +20,13 @@ LastReadBank: db #FF, #FF
 ;; ROM test
 ROMStringBuffer: ds 16
 
-
 ;; Soak test
 SoakTestIndicator: ds 4				; Save 4 bytes
 SoakTestCount: db 0
+
+;; Sound test
+MixerDataPtr: dw 0
+SoundTestY: db 0
 
 ;; Keyboard test
 KeyboardLayout: db 0				; 0: 6128, 1: 464
@@ -32,14 +35,14 @@ FillKeyPattern: db 0
 KeyboardLocationTable: dw 0
 SpecialKeysTable: dw 0
 KeyboardLabels: ds KeyboardLabelsTableSize	; Copy of the labels, patched up with correct language variations
-;;KeyboardResult: ds 
+;;KeyboardResult: ds
 
 ;; Keyboard
-;; This buffer has one byte per keyboard line. 
-;; Each byte defines a single keyboard line, which defines 
+;; This buffer has one byte per keyboard line.
+;; Each byte defines a single keyboard line, which defines
 ;; the state for up to 8 keys.
 ;;
-;; A bit in a byte will be '1' if the corresponding key 
+;; A bit in a byte will be '1' if the corresponding key
 ;; is pressed, '0' if the key is not pressed.
 
 KeyboardBufferSize equ 10
@@ -62,4 +65,3 @@ PresseddMatrixBuffer: 	     defs KeyboardBufferSize
 
 @scr_table: defs 200*2
 char_depack_buffer: defs 16
-

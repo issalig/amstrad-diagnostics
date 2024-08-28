@@ -63,14 +63,14 @@ MainMenuLoop:
 	bit 	6, a					; Return
 	jr 	nz, .selectionChoose
 
-	ld 	a, (EdgeOnKeyboardMatrixBuffer+2)		
+	ld 	a, (EdgeOnKeyboardMatrixBuffer+2)
 	bit 	2, a					; Enter
 	jr 	nz, .selectionChoose
 
-	ld 	a, (EdgeOnKeyboardMatrixBuffer+5)		
+	ld 	a, (EdgeOnKeyboardMatrixBuffer+5)
 	bit 	7, a					; Space
 	jr 	nz, .selectionChoose
-	ld 	a, (EdgeOnKeyboardMatrixBuffer+9)		
+	ld 	a, (EdgeOnKeyboardMatrixBuffer+9)
 	bit 	0, a					; Joystick up
 	jr 	nz, .selectionUp
 	bit 	1, a					; Joystick down
@@ -83,7 +83,7 @@ MainMenuLoop:
 .doItem:
 	ld 	l, (ix+MenuItem.Function)
 	ld 	h, (ix+MenuItem.Function+1)
-	jp 	(hl)	
+	jp 	(hl)
 
 .selectionUp:
 	ld 	a, (SelectedMenuItem)
@@ -130,7 +130,7 @@ MainMenuLoop:
 .selectionChoose:
 	ld 	ix, MenuTable
 	ld 	de, MENU_ITEM_SIZE
-	ld 	a,(SelectedMenuItem)	
+	ld 	a,(SelectedMenuItem)
 .loop:
 	or 	a
 	jr 	z,.doItem
@@ -164,6 +164,9 @@ KeyboardTestSelected:
 	call TestKeyboard
 	jp MainMenuRepeat
 
+SoundTestSelected:
+	call SoundTest
+	jp TestComplete
 
 TestComplete:
 .loop:
@@ -238,7 +241,7 @@ SetUpScreen:
 	ld 	d, 0
 	call 	ClearScreen
 	ld 	a, 4
-	call 	SetBorderColor 
+	call 	SetBorderColor
 
 	;; Banner title
 	ld 	hl, TxtBlank
@@ -616,9 +619,9 @@ RemoveUpperRAMTest:
 	ld	hl, MenuItemUpperRAMTest + MENU_ITEM_SIZE
 	ld	de, MenuItemUpperRAMTest
 	ld	bc, MenuTableEnd - (MenuItemUpperRAMTest + MENU_ITEM_SIZE)
-	;;jr	RemoveTestEnd			;; Drop through 
+	;;jr	RemoveTestEnd			;; Drop through
 
-RemoveTestEnd:	
+RemoveTestEnd:
 	ldir
 
 	ld	hl, MenuItemCount
@@ -634,10 +637,11 @@ MENU_ITEM_X EQU SELECT_X+2
 
 TxtLowerRAMTest: db "[L] LOWER RAM ",0
 TxtUpperRAMTest: db "[U] UPPER RAM ",0
-TxtROMTest: 	 db "[R] ROM ",0
+TxtROMTest: 	   db "[R] ROM ",0
 TxtKeyboardTest: db "[K] KEYBOARD ",0
-TxtSoakTest: 	 db "[S] SOAK TEST ",0
+TxtSoakTest: 	   db "[S] SOAK TEST ",0
 
+TxtSoundTest: 	 db "[T] SOUND TEST ",0
 
 TxtTitle: db 'AMSTRAD DIAGNOSTICS V', VERSION_STR, BUILD_STR,0
 TxtTitleLen EQU $-TxtTitle-1
@@ -645,4 +649,3 @@ TxtBlank: db 0
 
 TxtAnyKeyMainMenu: db "PRESS ANY KEY FOR MAIN MENU",0
 TxtROM: db 'ROM ',0
-

@@ -22,6 +22,10 @@ MenuItemKeyboardTest:
 	MenuItem TxtKeyboardTest, KeyboardTestSelected, 4, %00100000	;; K
 MenuItemSoakTest:
 	MenuItem TxtSoakTest, SoakTestSelected, 7, %00010000		;; S
+
+MenuItemSoundTest:
+	MenuItem TxtSoundTest, SoundTestSelected, 6, %00001000		;; T
+
 MenuTableEnd:
 
 MENU_ITEM_SIZE EQU MenuItemUpperRAMTest-MenuItemLowerRAMTest
@@ -36,7 +40,7 @@ TESTRESULT_NOTAVAILABLE EQU 4
 
 
 TestResultTable:
-;; 0 - status 
+;; 0 - status
 TestResultTableLowerRAM:
 	db TESTRESULT_PASSED
 TestResultTableUpperRAM:
@@ -56,4 +60,3 @@ TestResultTableKeyboard:
 	db TESTRESULT_UNTESTED
 TestResultTableJoystick:
 	db TESTRESULT_UNTESTED
-

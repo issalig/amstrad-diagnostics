@@ -58,6 +58,7 @@ ProgramStart:
 
 ; This is where the Soak test loops
 TestStart:
+	DEFINE SOUND_CHANNEL %101
 	DEFINE SOUND_DURATION #6000
 	DEFINE SILENCE_DURATION #1
 	DEFINE SOUND_TONE_L #FF
@@ -109,7 +110,6 @@ RAMTestPassed:
 	DEFINE SOUND_TONE_L #A0
 	DEFINE SOUND_TONE_H #00
 	INCLUDE "PlaySound.asm"
-
 	INCLUDE "PlaySound.asm"
 	jp 	MainMenu
 
@@ -150,6 +150,7 @@ RAMInitialize:
  IFDEF ROM_CHECK
 	INCLUDE "CheckROMs.asm"
  ENDIF
+ INCLUDE "SoundTest.asm"
 
 
 ;; This is the code that needs to be in RAM to function
@@ -176,7 +177,7 @@ RAMEnd:
  ENT
 ProgramEnd:
 
- 
+
  IFDEF PRINT_PROGRAM_SIZE
 	DISPLAY "Total size: ", ProgramEnd - ProgramStart - (RAMEnd - RAMDataEnd)
 	DISPLAY "RAM size: ", RAMEnd - RAMBegin
