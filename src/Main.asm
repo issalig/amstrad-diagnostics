@@ -45,6 +45,7 @@ ProgramStart:
  IFDEF RAMBuild
 	DISPLAY "RAM build"
  ORG #400
+ProgramStart:
  ENDIF
 
 
@@ -130,10 +131,17 @@ RAMInitialize:
 	call 	MakeScrTable
 	ret
 
+ DISPLAY "LDIR code : ", $ - RAMInitialize, " (", RAMInitialize, " - ", $-1, ")"
+ DISPLAY "LDIR copy : ", "hl=", RAMBlockBegin, " de=", RAMProgramAddr, " bc=", RAMDataEnd-RAMBegin, " (", RAMProgramAddr+RAMDataEnd-RAMBegin, ")"
 
  INCLUDE "MainMenu.asm"
  INCLUDE "Model.asm"
  INCLUDE "Vendor.asm"
+
+Z80Begin:
+ INCLUDE "Z80.asm"
+ DISPLAY "Z80 size:   ", $ - Z80Begin, " (", Z80Begin, " - ", $-1, ")"
+
  INCLUDE "SoakTest.asm"
  INCLUDE "CheckUpperRAM.asm"
  INCLUDE "UtilsPrint.asm"
@@ -143,6 +151,15 @@ RAMInitialize:
  INCLUDE "KeyboardTest.asm"
  INCLUDE "SystemInfo.asm"
  INCLUDE "FDC.asm"
+ 
+TapeBegin:
+ INCLUDE "Tape.asm"
+ DISPLAY "Tape size:  ", $ - TapeBegin, " (", TapeBegin, " - ", $-1, ")"	
+
+DiskBegin:
+ INCLUDE "disk.asm"
+ DISPLAY "Disk size:  ", $ - DiskBegin, " (", DiskBegin, " - ", $-1, ")"
+
  IFNDEF UpperROMBuild
  	INCLUDE "PrintChar.asm"
 	INCLUDE "Draw.asm"
@@ -150,13 +167,16 @@ RAMInitialize:
  IFDEF ROM_CHECK
 	INCLUDE "CheckROMs.asm"
  ENDIF
- INCLUDE "SoundTest.asm"
 
+
+SoundBegin:
+; INCLUDE "SoundTest.asm"
+; DISPLAY "Sound size: ", $ - SoundBegin, " (", SoundBegin, " - ", $-1, ")"
 
 ;; This is the code that needs to be in RAM to function
 RAMProgramAddr EQU #8000
 RAMBlockBegin:
- DISP RAMProgramAddr
+ DISP RAMProgramAddr			; Start displacing output to #8000
 RAMBegin:
  	INCLUDE "ROMAccess.asm"
  	INCLUDE "UpperRAMC3Check.asm"
@@ -168,17 +188,22 @@ RAMBegin:
  	INCLUDE "Dandanator.asm"
  	INCLUDE "M4.asm"
  ENDIF
+VarInit:
  	INCLUDE "VariablesInitialized.asm"
+	DISPLAY "Var Init:   ", $ - VarInit, " (", VarInit, " - ", $ - 1, ")"
 RAMDataEnd:
  	;; This is just saving room in RAM, but it's not taking up any of the ROM size
- 	OUTEND
+ 	OUTEND						; End displacing output	
  	INCLUDE "Variables.asm"
+	DISPLAY "Variables:  ", $ - RAMDataEnd, " (", RAMDataEnd, " - ", $ - 1, ")"
 RAMEnd:
- ENT
+ ENT							; Retturn to normal assembly address
 ProgramEnd:
 
 
  IFDEF PRINT_PROGRAM_SIZE
+ 	DISPLAY " "
 	DISPLAY "Total size: ", ProgramEnd - ProgramStart - (RAMEnd - RAMDataEnd)
-	DISPLAY "RAM size: ", RAMEnd - RAMBegin
+	DISPLAY "RAM size:   ", RAMEnd - RAMBegin, " (", RAMBegin, " - ", RAMEnd, ")"
  ENDIF
+	DISPLAY " "

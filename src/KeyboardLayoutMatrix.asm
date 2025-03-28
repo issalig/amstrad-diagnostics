@@ -1,15 +1,18 @@
 
 /*
+
+  7 6 5 4 3 2 1 0  bitmask on menuitem
+
 D
-  1 2 E Q T A C Z
-  4 3 E W S D C X
-  6 5 R T G F B V
-  8 7 U Y H J N SPACE
-  0 9 O I L K M ,
-  ^ - @ P ; : / .
-  C [ E ] 4 SH \ CT
-  L C 7 8 5 1 2 0
-  U R D 9 6 3 E .
+  1 2 E Q T A C Z			8
+  4 3 E W S D C X			7
+  6 5 R T G F B V			6
+  8 7 U Y H J N SPACE		5
+  0 9 O I L K M ,			4
+  ^ - @ P ; : / .			3
+  C [ E ] 4 SH \ CT			2
+  L C 7 8 5 1 2 0			1
+  U R D 9 6 3 E .			0
 */
 
 

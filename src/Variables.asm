@@ -11,6 +11,13 @@ FDCPresent: db 0
 VendorName: db 0
 RefreshFrequency: db 0
 
+Z80Type: db 0
+Z80Flavor: db 0
+
+;; Z80 IXF test
+Z80IxfResults: ds 6
+
+
 ;; Upper RAM test
 ValidBankCount: db 0
 FailingBits: db 0
@@ -51,6 +58,21 @@ LastKeyboardMatrixBuffer:    defs KeyboardBufferSize
 EdgeOnKeyboardMatrixBuffer:  defs KeyboardBufferSize
 EdgeOffKeyboardMatrixBuffer: defs KeyboardBufferSize
 PresseddMatrixBuffer: 	     defs KeyboardBufferSize
+PressedRowsMask: db 0
+PressedColsMask: dw 0
+
+;; Disk test
+;Drive:  db 0                     ; Current drive number (0 or 1)
+;Track:  db 0                     ; Track number (0 for RPM measurement)
+;RpmInt: dw 0                     ; RPM integer value
+Time:   ds 2                     ; 16-bit timer counter storage
+; TRCmd: db #09,#46,#00,#00,#00,#00,#00,#00,#2A,#FF ; PD765 FDC command: Read ID with MFM mode
+; Result timing counter
+RESTIME:    DEFS    2
+; Bad sector information
+BADSECT:    DEFB    #00,#00,#00,#FF
+
+
 
 ;; Print char
 @TxtCoords:
@@ -63,5 +85,7 @@ PresseddMatrixBuffer: 	     defs KeyboardBufferSize
 @bk_color: db 0
 @fg_color: db 0
 
+ DISPLAY $
 @scr_table: defs 200*2
+ DISPLAY $
 char_depack_buffer: defs 16

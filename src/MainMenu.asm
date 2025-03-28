@@ -164,8 +164,16 @@ KeyboardTestSelected:
 	call TestKeyboard
 	jp MainMenuRepeat
 
-SoundTestSelected:
-	call SoundTest
+;SoundTestSelected:
+;	call SoundTest
+;	jp TestComplete
+
+TapeTestSelected:
+	call TapeTest
+	jp TestComplete
+
+DiskTestSelected:
+	call DiskTest
 	jp TestComplete
 
 TestComplete:
@@ -186,6 +194,7 @@ TxtRAM: 	db 'RAM       : ',0
 TxtCRTC: 	db 'CRTC      : ',0
 TxtKB: 		db 'KB',0
 TxtFDC: 	db 'FDC       : ',0
+TxtZ80: 	db 'Z80       : ',0
 TxtDetected: 	db 'DETECTED',0
 TxtNone:	db 'NONE',0
 
@@ -209,6 +218,7 @@ ResultLabelTableCount EQU ($-ResultLabelTable)/2
 KEYBOARD_TEST_INDEX EQU 4
 JOYSTICK_TEST_INDEX EQU 5
 
+MATRIX_TEST_INDEX EQU 6 ;; keyboard matrix
 
 TxtUntested: db "UNTESTED",0
 TxtPassed: db "PASSED",0
@@ -370,6 +380,41 @@ SetUpScreen:
 	ld	hl, TxtDetected
 .FDCskip:
 	call	PrintString
+
+	;; Z80 test	
+	pop	hl
+	inc	l						; Move to next line
+	push 	hl
+
+ 	ld	(TxtCoords), hl
+	ld 	hl, TxtZ80
+	call 	PrintString
+
+	ld	a, (Z80Type)
+	ld	e, a
+	ld	d, 0
+	ld	hl, Z80TypeTableOffset
+	add	hl, de
+	ld	a, (hl)
+	ld	e, a
+	ld	hl, Z80TypeNames
+	add	hl, de
+	call    PrintString
+
+	ld	a, '/'
+	call	PrintChar
+
+	ld	a, (Z80Flavor)
+	ld	e, a
+	ld	d, 0
+	ld	hl, Z80FlavorTableOffset
+	add	hl, de
+	ld	a, (hl)
+	ld	e, a
+	ld	hl, Z80FlavorNames
+	add	hl, de
+	call    PrintString
+
 
 	;; Results
 	pop	hl
@@ -642,6 +687,9 @@ TxtKeyboardTest: db "[K] KEYBOARD ",0
 TxtSoakTest: 	   db "[S] SOAK TEST ",0
 
 TxtSoundTest: 	 db "[T] SOUND TEST ",0
+
+TxtTapeTest: 	 db "[P] TAPE ",0
+TxtDiskTest: 	 db "[D] DISK ",0
 
 TxtTitle: db 'AMSTRAD DIAGNOSTICS V', VERSION_STR, BUILD_STR,0
 TxtTitleLen EQU $-TxtTitle-1

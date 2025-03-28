@@ -165,3 +165,37 @@ shiftleft:
        dec b
        jr nz, loopPrintABin
 	   ret
+
+;IN A = number to print
+;Modifies BC
+PrintA2Bin:		
+       ld c, a       ;save a
+       ld b, 2
+.loopPrintA2Bin:     
+       bit 1, c
+       jr z, .print0
+       jr nz, .print1
+.print0:
+        ld a, "0"
+        call PrintChar
+        jr .shiftleft
+
+.print1:
+        ld a, "1"
+        call PrintChar
+        jr .shiftleft
+.shiftleft:       
+       sla c
+       dec b
+       jr nz, .loopPrintA2Bin
+	   ret
+
+; IN A = positions to move right
+; Modifies HL and BC
+MoveXPos:	
+    ld b, a
+    ld hl, (TxtCoords)
+    ld a, h
+    add a, b             ; Move n characters to the right
+    ld h, a
+    ld (TxtCoords), hl    

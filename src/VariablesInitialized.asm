@@ -11,20 +11,43 @@ KeybOffset BYTE
 BitMask BYTE
  ENDS
 
+/*
+
+  0  1  2   3  4  5  6  7  bitmask on menuitem
+
+Dl
+  1  2  Es  Q  Tb A  Ca Z			8 
+  4  3  E   W  S  D  C  X			7
+  6  5  R   T  G  F  B  V			6
+  8  7  U   Y  H  J  N  Space		5
+  0  9  O   I  L  K  M  ,			4   KeybOffset
+  ^  -  @   P  ;  :  /  .			3
+  Cl [  En  ]  4  Sh \  Ct			2
+  Lf Cp 7   8  5  1  2  0			1
+  Up Rg Dw  9  6  3  En .			0
+*/
+
 MenuTable:
 MenuItemLowerRAMTest:
+;            Text, Function, KeybOffset, BitMask
 	MenuItem TxtLowerRAMTest, LowerRAMTestSelected, 4, %00010000  	;; L
 MenuItemUpperRAMTest:
 	MenuItem TxtUpperRAMTest, UpperRAMTestSelected, 5, %00000100	;; U
 MenuItemROMTest:
-	MenuItem TxtROMTest, ROMTestSelected, 6, %00000100		;; R
+	MenuItem TxtROMTest, ROMTestSelected, 6, %00000100				;; R
 MenuItemKeyboardTest:
 	MenuItem TxtKeyboardTest, KeyboardTestSelected, 4, %00100000	;; K
 MenuItemSoakTest:
-	MenuItem TxtSoakTest, SoakTestSelected, 7, %00010000		;; S
+	MenuItem TxtSoakTest, SoakTestSelected, 7, %00010000			;; S
 
-MenuItemSoundTest:
-	MenuItem TxtSoundTest, SoundTestSelected, 6, %00001000		;; T
+;MenuItemSoundTest:
+;	MenuItem TxtSoundTest, SoundTestSelected, 6, %00001000			;; T
+
+MenuItemTapeTest:
+	MenuItem TxtTapeTest, TapeTestSelected,  3, %00001000			;; P	
+
+MenuItemDiskTest:
+	MenuItem TxtDiskTest, DiskTestSelected, 7, %00100000			;; D
 
 MenuTableEnd:
 
@@ -60,3 +83,4 @@ TestResultTableKeyboard:
 	db TESTRESULT_UNTESTED
 TestResultTableJoystick:
 	db TESTRESULT_UNTESTED
+

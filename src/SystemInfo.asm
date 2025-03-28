@@ -6,6 +6,9 @@
 	call	DetectModel
 	call    DetectVendor
 	call    DetectFrequency
+	call	TestZ80CMOS
+	call	TestZ80Flavor
+
 
 	;; From the model, determine the keyboard layout
 	ld	a, (ModelType)
