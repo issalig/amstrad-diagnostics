@@ -164,9 +164,9 @@ KeyboardTestSelected:
 	call TestKeyboard
 	jp MainMenuRepeat
 
-;SoundTestSelected:
-;	call SoundTest
-;	jp TestComplete
+SoundTestSelected:
+	call SoundTest
+	jp TestComplete
 
 TapeTestSelected:
 	call TapeTest

@@ -40,8 +40,8 @@ MenuItemKeyboardTest:
 MenuItemSoakTest:
 	MenuItem TxtSoakTest, SoakTestSelected, 7, %00010000			;; S
 
-;MenuItemSoundTest:
-;	MenuItem TxtSoundTest, SoundTestSelected, 6, %00001000			;; T
+MenuItemSoundTest:
+	MenuItem TxtSoundTest, SoundTestSelected, 6, %00001000			;; T
 
 MenuItemTapeTest:
 	MenuItem TxtTapeTest, TapeTestSelected,  3, %00001000			;; P	

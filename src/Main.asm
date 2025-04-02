@@ -170,8 +170,8 @@ DiskBegin:
 
 
 SoundBegin:
-; INCLUDE "SoundTest.asm"
-; DISPLAY "Sound size: ", $ - SoundBegin, " (", SoundBegin, " - ", $-1, ")"
+	INCLUDE "SoundTest.asm"
+	DISPLAY "Sound size: ", $ - SoundBegin, " (", SoundBegin, " - ", $-1, ")"
 
 ;; This is the code that needs to be in RAM to function
 RAMProgramAddr EQU #8000
